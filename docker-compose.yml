@@ -1,0 +1,33 @@
+# format version
+version: "3.8"
+
+# defines all services
+services:
+  # service name 'item-db'
+  item-db:
+    # docker image and tag
+    image: mongo:3
+    # always restart
+    restart: always
+    # mount volumes
+    volumes:
+      - app-db:/data/db
+
+  # service name 'item-app'
+  item-app:
+    # docker image and tag
+    image: ghcr.io/szuryuu/a433-microservices/item-app:v1
+    # always restart
+    restart: always
+    # map host ports to container ports.
+    ports:
+      # expose container port 8080 on host port 80.
+      - "80:8080"
+    # waits for item-db to start.
+    depends_on:
+      # the application depends on the item-db service.
+      - item-db
+
+# declares named volumes used by services.
+volumes:
+  app-db:

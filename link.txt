@@ -1,0 +1,1 @@
+https://github.com/szuryuu/a433-microservices/pkgs/container/a433-microservices%2Fitem-app
