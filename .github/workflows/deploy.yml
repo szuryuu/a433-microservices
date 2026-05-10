@@ -3,7 +3,7 @@ name: karsajobs-backend
 on:
   push:
     branches:
-      - main
+      - karsajobs
   workflow_dispatch:
 
 jobs:
