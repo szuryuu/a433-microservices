@@ -1,0 +1,29 @@
+name: karsajobs-ui
+
+on:
+  push:
+    branches:
+      - karsajobs-ui
+  workflow_dispatch:
+
+jobs:
+  karsajobs-ui:
+    runs-on: ubuntu-latest
+
+    env:
+      CR_PAT: ${{ secrets.CR_PAT }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Docker lint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Run script
+        run: |
+          chmod +x build_push_image_karsajobs_ui.sh
+          ./build_push_image_karsajobs_ui.sh
+        shell: bash
