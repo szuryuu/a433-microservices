@@ -7,12 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  karsajobs-ui:
+  lint-dockerfile:
     runs-on: ubuntu-latest
-
-    env:
-      CR_PAT: ${{ secrets.CR_PAT }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,6 +17,15 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
+
+  build-app-karsajobs-ui:
+    runs-on: ubuntu-latest
+    needs: lint-dockerfile
+    env:
+      CR_PAT: ${{ secrets.CR_PAT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Run script
         run: |
